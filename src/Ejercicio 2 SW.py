@@ -27,9 +27,8 @@ def contar_numeros_hasta_maximo(max_num):
             contador += 1
     return contador
 
-app = Flask(__name__)
-
-api = Api(app, 
+app2 = Flask(__name__)
+api = Api(app2, 
           version='1.0', 
           title='Números que llegan a 89 API',
           description='Calcula cuántos números menores o iguales a un número dado generan una secuencia que llega a 89.',
@@ -40,7 +39,7 @@ parser = reqparse.RequestParser()
 parser.add_argument('n', type=int, required=True, help='Número máximo para calcular cuántos números llegan a 89')
 
 @ns.route('/solution-2')
-class Solution1(Resource):
+class Solution2(Resource):
     @api.doc(params={'n': 'Número máximo para calcular cuántos números llegan a 89'})
     def get(self):
         args = parser.parse_args()

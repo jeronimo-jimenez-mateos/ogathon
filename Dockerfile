@@ -13,5 +13,5 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 # Expone el puerto 8080
 EXPOSE 8080
 
-# Comando para arrancar la aplicación
+# Comando para arrancar ambos scripts
 CMD ["python", "Ejercicio 1 SW.py"]
