@@ -4,11 +4,11 @@ FROM python:3.11-slim
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Instala Flask y Flask-RESTX directamente
-RUN pip install --no-cache-dir flask flask-restx numpy
-
 # Copia todos los archivos de tu proyecto al contenedor
-COPY . .
+COPY ./src /app
+
+# Instala Flask y Flask-RESTX directamente
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Expone el puerto 8080
 EXPOSE 8080
