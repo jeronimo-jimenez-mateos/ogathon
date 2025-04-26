@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restx import Api, Resource, reqparse
-import numpy as np
+from decimal import Decimal, getcontext # Para mejorar la precisión de los cálculos
 
 
 '''
@@ -18,17 +18,20 @@ Si lo traemos al origen:
 '''
 app = Flask(__name__)
 def count_ways(n):
+    getcontext().prec = 100  
     # Para calcular el número de formas de llegar a la distancia d, podemos usar dos métodos:
     # Mediante un bucle
     # Usando la fórmula de Fibonacci (ideal para este problema, menor potencia de cómputo)
+    sqrt5 = Decimal(5).sqrt()
     PHI = (1 + 5 ** 0.5) / 2
     PSI = (1 - 5 ** 0.5) / 2
     # Fórmula de Fibonacci
-    dp_0 = 0
-    dp_1 = 1
-    dp_2 = 2
-    dp_n = (PHI ** (n+1) - PSI ** (n+1)) / (5 ** 0.5)
-    return int(dp_n)
+    PHI = (Decimal(1) + sqrt5) / Decimal(2)
+    PSI = (Decimal(1) - sqrt5) / Decimal(2)
+
+    dp_n = (PHI ** (n + 1) - PSI ** (n + 1)) / sqrt5
+    dp_n = dp_n.to_integral_value(rounding='ROUND_HALF_EVEN')  # redondeo seguro
+    return str(dp_n)
 
 api = Api(app, 
           version='1.0', 
